@@ -39,7 +39,7 @@ let water hydration =
 let salt = ingredient 0.021
 let yeast = ingredient 0.004
 
-let toGramString = sprintf "%ig"
+let g = sprintf "%ig"
 
 let toInt str =
   match str with
@@ -50,10 +50,10 @@ let view (model: Model) dispatch =
   div []
     [ h1 [] [ str "Recipe"]
       ul []
-        [ li [] [ str "Flour: "; str (toGramString model.Flour) ]
-          li [] [ str "Water: "; str (toGramString (water model.Hydration model.Flour)) ]
-          li [] [ str "Salt: "; str (toGramString (salt model.Flour)) ]
-          li [] [ str "Yeast: "; str (toGramString (yeast model.Flour)) ] ]
+        [ li [] [ str "Flour: "; str (model.Flour |> g) ]
+          li [] [ str "Water: "; str ((water model.Hydration model.Flour) |> g) ]
+          li [] [ str "Salt: "; str ((salt model.Flour) |> g) ]
+          li [] [ str "Yeast: "; str ((yeast model.Flour) |> g) ] ]
       div []
         [ input [ Type "number"; OnChange (fun e -> dispatch (ChangeFlour (toInt e.Value))); Value model.Flour ]; str "g"
           br []
